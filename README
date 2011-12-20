@@ -1,0 +1,35 @@
+A module that helps manage the use of enumerations. It constantizes each enum in the file
+as to avoid random numbers appearing in code and to keep code using enums understandable.
+Each enum is valued as an integer so that it can be used efficiently in db.
+
+
+# EXAMPLE
+
+module Languages
+  
+  extend Enum
+    define_enum(
+    [:spanish,       1,     "Spanish, originated in Spain"],
+    [:bamanankan,    2,     "Bamanankan, originated in Mali"],
+  )
+end
+
+puts Languages::SPANISH
+# => 1
+
+puts Languages.description_for(1)
+# => Spanish, Originated in Spain
+
+# recommended
+puts Languages.description_for(Languages::SPANISH)
+# => Spanish, Originated in Spain
+
+puts Languages.descriptions
+# => [ "Spanish, originated in Spain", "Bamanankan, originated in Mali"]
+
+# for use in select tag
+puts Languages.options
+# => [[ "Spanish, originated in Spain", 1],[ "Bamanankan, originated in Mali", 2]]
+
+puts Langauges.options(:spanish)
+# => [[ "Spanish, originated in Spain", 1]]
